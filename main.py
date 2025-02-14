@@ -1,4 +1,4 @@
-# pip install freecurrencyapi
+# pip install freecurrencyapi python-dotenv rich
 # pip install python-dotenv
 # pip install rich
 
