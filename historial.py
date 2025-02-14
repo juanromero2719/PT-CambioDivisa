@@ -9,16 +9,16 @@ class Historial:
         self.historial = []
         self.PERSISTIR_DATOS = os.getenv("PERSISTIR_DATOS", False)
         if self.PERSISTIR_DATOS:
-            self._cargar_desde_csv()
+            self.cargarCSV()
 
-    def _cargar_desde_csv(self):
+    def cargarCSV(self):
 
         if os.path.exists(self.ARCHIVO_CSV):
             with open(self.ARCHIVO_CSV, mode="r", newline="", encoding="utf-8") as archivo:
                 lector = csv.DictReader(archivo)
                 self.historial = [fila for fila in lector]
 
-    def guardar_conversion(self, moneda_base, moneda_destino, cantidad, conversion, tasa):
+    def guardarConversion(self, moneda_base, moneda_destino, cantidad, conversion, tasa):
  
         registro = {
             "moneda_base": moneda_base,
@@ -30,9 +30,9 @@ class Historial:
         self.historial.append(registro)
 
         if self.PERSISTIR_DATOS:
-            self._guardar_en_csv(registro)
+            self.guardarCSV(registro)
 
-    def _guardar_en_csv(self, registro):
+    def guardarCSV(self, registro):
         
         archivo_existe = os.path.exists(self.ARCHIVO_CSV)
         with open(self.ARCHIVO_CSV, mode="a", newline="", encoding="utf-8") as archivo:
@@ -44,5 +44,5 @@ class Historial:
 
             escritor.writerow(registro)
 
-    def obtener_historial(self):
+    def obtenerHistorial(self):
         return self.historial

@@ -4,7 +4,7 @@ class cambioDivisa():
 
     def __init__(self):
         self.conexion = ConexionApi()
-        self.cliente = self.conexion.conectar_api()
+        self.cliente = self.conexion.conectarApi()
 
     def obtenerTasasCambio(self, divisa):
         tasas = self.cliente.latest(base_currency=divisa)

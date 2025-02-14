@@ -18,7 +18,7 @@ class ConexionApi:
         load_dotenv()  
         self.api_key = os.getenv("API_KEY")
 
-    def conectar_api(self):
+    def conectarApi(self):
 
         if not self.api_key:
             print("Error: No se encontró la API_KEY en las variables de entorno.")

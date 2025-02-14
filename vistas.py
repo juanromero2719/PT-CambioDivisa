@@ -105,6 +105,11 @@ class Vista:
 
     def solicitarCantidad(self, moneda):
         cantidad_str = self.console.input(f"[bold cyan]Ingrese la cantidad de {moneda}: [/bold cyan]")
+
+        if(float(cantidad_str) <= 0):
+            self.console.print("[bold red]Por favor ingrese un número mayor a 0.[/bold red]")
+            return self.solicitarCantidad(moneda)
+
         try:
             cantidad = float(cantidad_str)
             return cantidad
@@ -133,8 +138,7 @@ class Vista:
         tasa = tasas_cambio[moneda_destino]
         conversion = tasa * cantidad
 
-        # Guardar la conversión en el historial (CSV o memoria, según configuración)
-        self.historial.guardar_conversion(moneda_base, moneda_destino, cantidad, conversion, tasa)
+        self.historial.guardarConversion(moneda_base, moneda_destino, cantidad, conversion, tasa)
 
         table = Table(show_header=True)
         table.add_column(moneda_base, justify="center", style="cyan", no_wrap=True)
@@ -143,7 +147,7 @@ class Vista:
         self.console.print(table)
 
     def mostrarHistorial(self):
-        historial = self.historial.obtener_historial()
+        historial = self.historial.obtenerHistorial()
         if not historial:
             self.console.print("[bold red]No hay historial de conversiones.[/bold red]")
             return
