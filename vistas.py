@@ -1,4 +1,3 @@
-# File: vista.py
 from rich.console import Console
 from rich.table import Table
 from cambioDivisa import cambioDivisa
@@ -15,6 +14,7 @@ class Vista:
         self.divisas = list(self.cambio.obtenerDivisas())
         self.historial = Historial()
         self.cantidad_digitos = os.getenv("CANTIDAD_DIGITOS", 5)
+        
 
     def run(self):
         while True:
@@ -23,13 +23,17 @@ class Vista:
             if opcion == "1":
                 continue
             elif opcion == "2":
-                self.mostrarHistorial()
-                opcion2 = self.menuPostConversion()
-                if opcion2 == "1":
-                    continue
-                else:
-                    self.salir()
-                    break
+                
+                while True:
+                    self.mostrarHistorial()
+                    opcion_post = self.menuPostConversion()
+                    if opcion_post == "1":
+                        break  
+                    elif opcion_post == "2":
+                        continue  
+                    else:
+                        self.salir()
+                        return
             else:
                 self.salir()
                 break
@@ -144,7 +148,9 @@ class Vista:
             return
         tasa = tasas_cambio[moneda_destino]
         conversion = tasa * cantidad
+        print(f"Intentando guardar los datos...")
         self.historial.guardarConversion(moneda_base, moneda_destino, cantidad, conversion, tasa)
+        print(f"Datos guardados exitosamente.")
         table = Table(show_header=True)
         table.add_column(moneda_base, justify="center", style="cyan", no_wrap=True)
         table.add_column(moneda_destino, justify="center", style="yellow", no_wrap=True)
