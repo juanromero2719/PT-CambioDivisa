@@ -148,9 +148,9 @@ class Vista:
             return
         tasa = tasas_cambio[moneda_destino]
         conversion = tasa * cantidad
-        print(f"Intentando guardar los datos...")
+
         self.historial.guardarConversion(moneda_base, moneda_destino, cantidad, conversion, tasa)
-        print(f"Datos guardados exitosamente.")
+
         table = Table(show_header=True)
         table.add_column(moneda_base, justify="center", style="cyan", no_wrap=True)
         table.add_column(moneda_destino, justify="center", style="yellow", no_wrap=True)

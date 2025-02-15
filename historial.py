@@ -10,9 +10,7 @@ class Historial:
     def __init__(self):
         self.historial = []
         self.PERSISTIR_DATOS = os.getenv("PERSISTIR")
-        print("constructor de historial " + self.PERSISTIR_DATOS)
         if self.PERSISTIR_DATOS == "True":
-            print("cargando datos del csv")
             self.cargarCSV() 
 
     def cargarCSV(self):
@@ -24,13 +22,8 @@ class Historial:
 
     def guardarConversion(self, moneda_base, moneda_destino, cantidad, conversion, tasa):
 
-        print("intentando guardar la informacion...")
-
         load_dotenv()
         
-        print(type(self.PERSISTIR_DATOS))
-        print("valor de la variable: " + self.PERSISTIR_DATOS)
-
         registro = {
             "moneda_base": moneda_base,
             "moneda_destino": moneda_destino,
@@ -42,7 +35,6 @@ class Historial:
         self.historial.append(registro)
 
         if self.PERSISTIR_DATOS == "True":
-            print("guardando en csv...")
             self.guardarCSV(registro)
 
             
